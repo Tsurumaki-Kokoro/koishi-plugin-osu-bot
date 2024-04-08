@@ -1,22 +1,39 @@
 {
   "name": "@tr4nce/koishi-plugin-osu-bot",
   "description": "Base on HitCircle API",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist"
   ],
+  "koishi": {
+    "description": {
+      "en": "Base on HitCircle API osu! bot plugin",
+      "zh-CN": "基于 HitCircle API 的 osu! bot 插件"
+    }
+  },
   "license": "MIT",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "osu"
   ],
-  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tsurumaki-Kokoro/koishi-plugin-osu-bot.git"
+  },
   "peerDependencies": {
+    "@koishijs/plugin-console": "^5.11.0",
     "koishi": "^4.17.3"
+  },
+  "devDependencies": {
+    "@koishijs/client": "^5.11.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "koishi-plugin-cron": "^3.1.0"
   }
 }

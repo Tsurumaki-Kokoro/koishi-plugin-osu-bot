@@ -1,0 +1,106 @@
+commands:
+  bind:
+    description: 绑定你的 osu! 账号到你的 平台 账号
+    usage: bind <osu!用户名>
+    examples:
+      - command: bind peppy
+    messages:
+      success: "已绑定到"
+      alreadyBound: "你的 osu! 账号已经绑定过了, 请使用 `unbind` 来解绑"
+      invalidUser: "无法找到这个 osu! 用户"
+      error: "绑定时出现了错误"
+  unbind:
+    description: 解绑你的 osu! 账号
+    usage: unbind
+    examples:
+      - command: unbind
+    messages:
+      success: "已解绑"
+      notBound: "你在当前平台还没有绑定 osu! 账号"
+      error: "解绑时出现了错误"
+  mode:
+    description: 更新你的 osu! 游玩模式
+    usage: mode <模式数字>
+    examples:
+      - command: mode 0
+    messages:
+      success: "已设置模式为"
+      notBound: "你在当前平台还没有绑定 osu! 账号"
+      invalidMode: "非法 Mode 参数, 请使用 0, 1, 2, 3 中的一个"
+      error: "设置模式时出现了错误"
+  info:
+    description: 查询你的 osu! 个人信息
+    usage: info [@用户]
+    examples:
+      - command: info
+      - command: info @peppy
+    messages:
+      notBound: "该用户还没有绑定 osu! 账号"
+      error: "查询时出现了错误"
+  recent:
+    description: 查询你的 osu! 最近游玩的记录(包含 Failed)
+    usage: recent [@用户]
+    options:
+      - m: 需要查询的模式
+      - t: 返回的图片主题
+    examples:
+      - command: recent
+      - command: recent @peppy
+      - command: recent -m 0 -t default
+    messages:
+      notBound: "该用户还没有绑定 osu! 账号, 或暂无最近游玩记录"
+      error: "查询时出现了错误"
+  pr:
+    description: 查询你的 osu! 最近游玩的记录
+    usage: pr [@用户]
+    options:
+      - m: 需要查询的模式
+      - t: 返回的图片主题
+    examples:
+      - command: pr
+      - command: pr @peppy
+      - command: pr -m 0 -t default
+    messages:
+      notBound: "该用户还没有绑定 osu! 账号, 或暂无最近游玩记录"
+      error: "查询时出现了错误"
+  score:
+    description: 查询你的 osu! 最高分数
+    usage: score <beatmap id> [@用户]
+    options:
+      - md: 需要查询的mod
+      - t: 返回的图片主题
+    examples:
+      - command: score
+      - command: score @peppy
+      - command: score -m 0 -t default
+    messages:
+      notBound: "该用户还没有绑定 osu! 账号, 或暂无最高分数记录"
+      error: "查询时出现了错误"
+  map:
+    description: 查询 osu! 地图信息
+    usage: map <beatmap id>
+    options:
+      - t: 返回的图片主题
+    examples:
+      - command: map 114514
+    messages:
+      error: "查询时出现了错误"
+      badRequest: "无法找到这个beatmap"
+  bmap:
+    description: 查询 osu! 地图集信息
+    usage: bmap <beatmap set id>
+    options:
+      - t: 返回的图片主题
+    examples:
+      - command: bmap 114514
+    messages:
+      error: "查询时出现了错误"
+      badRequest: "无法找到这个beatmap set"
+  getbg:
+    description: 获取 osu! 地图背景图片
+    usage: getbg <beatmap id>
+    examples:
+      - command: getbg 114514
+    messages:
+      error: "查询时出现了错误"
+      badRequest: "无法找到这个beatmap"
