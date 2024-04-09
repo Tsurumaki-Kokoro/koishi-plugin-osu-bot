@@ -78,7 +78,7 @@ export function apply(ctx: Context, config: Config) {
         if (session.platform === 'discord') {
           return msg
         } else {
-          await session.send(h('quote', {id: session.messageId}, msg))
+          await session.send(String(h('quote', { id: session.messageId })) + msg)
         }
       } catch (e) {
         ctx.logger.warn(e.response.data)
@@ -93,7 +93,7 @@ export function apply(ctx: Context, config: Config) {
         if (session.platform === 'discord') {
           return msg
         }
-        await session.send(h('quote', {id: session.messageId}, msg))
+        await session.send(String(h('quote', { id: session.messageId })) + msg)
       }
     })
 
@@ -114,7 +114,7 @@ export function apply(ctx: Context, config: Config) {
         if (session.platform === 'discord') {
           return msg
         } else {
-          await session.send(h('quote', {id: session.messageId}, msg))
+          await session.send(String(h('quote', { id: session.messageId })) + msg)
         }
       } catch (e) {
         if (e.response.status === 404) {
@@ -126,7 +126,7 @@ export function apply(ctx: Context, config: Config) {
         if (session.platform === 'discord') {
           return msg
         }
-        await session.send(h('quote', {id: session.messageId}, msg))
+        await session.send(String(h('quote', { id: session.messageId })) + msg)
       }
     })
 
@@ -163,7 +163,7 @@ export function apply(ctx: Context, config: Config) {
         if (session.platform === 'discord') {
           return msg
         } else {
-          await session.send(h('quote', {id: session.messageId}, msg))
+          await session.send(String(h('quote', { id: session.messageId })) + msg)
         }
       } catch (e) {
         if (e.response.status === 404) {
@@ -177,7 +177,7 @@ export function apply(ctx: Context, config: Config) {
         if (session.platform === 'discord') {
           return msg
         }
-        await session.send(h('quote', {id: session.messageId}, msg))
+        await session.send(String(h('quote', { id: session.messageId })) + msg)
       }
     })
 
