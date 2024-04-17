@@ -30,7 +30,7 @@ export function apply(ctx: Context, config: Config) {
   ctx.i18n.define('zh-CN', require('./locales/zh-CN'))
   const service = axios.create({
     baseURL: `http://${config.hitCircleUrl}:${config.hitCirclePort}`,
-    timeout: 10000,
+    timeout: 45000,
   })
 
   service.interceptors.request.use(
