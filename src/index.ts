@@ -395,4 +395,57 @@ export function apply(ctx: Context, config: Config) {
       }
     })
 
+  ctx.command('mph <matchId: integer>', '查询多人游戏信息')
+    .option('theme', '-t [theme: string]')
+    .action(async ({ session, options }, matchId) => {
+      try {
+        const res = await service.get('/multiplayer/history', {
+          params: {
+            mp_id: matchId,
+            theme: options.theme,
+          },
+          responseType: 'arraybuffer',
+        })
+        const base64Image = Buffer.from(res.data).toString('base64');
+        const dataUri = `data:image/png;base64,${base64Image}`;
+        return segment.image(dataUri);
+      } catch (e) {
+        if (e.response.status === 400) {
+          return session.text('.badRequest')
+        } else if (e.response.status === 404) {
+          return session.text('.notFound')
+        }
+        ctx.logger.warn(e.response.data)
+        return session.text('.error')
+      }
+    })
+
+  ctx.command('mpr <matchId: integer>', '查询多人游戏Rating')
+    .option('theme', '-t [theme: string]')
+    .option('algorithm', '-a [algorithm: string]')
+    .action(async ({ session, options }, matchId) => {
+      try {
+        const res = await service.get('/multiplayer/rating', {
+          params: {
+            mp_id: matchId,
+            theme: options.theme,
+            algorithm: options.algorithm,
+          },
+          responseType: 'arraybuffer',
+        })
+        const base64Image = Buffer.from(res.data).toString('base64');
+        const dataUri = `data:image/png;base64,${base64Image}`;
+        return segment.image(dataUri);
+      } catch (e) {
+        if (e.response.status === 400) {
+          return session.text('.badRequest')
+        } else if (e.response.status === 404) {
+          return session.text('.notFound')
+        } else if (e.response.status === 422) {
+          return session.text('.invalidAlgorithm')
+        }
+        ctx.logger.warn(e.response.data)
+        return session.text('.error')
+      }
+    })
 }

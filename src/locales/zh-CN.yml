@@ -104,3 +104,25 @@ commands:
     messages:
       error: "查询时出现了错误"
       badRequest: "无法找到这个beatmap"
+  mph:
+    description: 查询 osu! 多人游戏的历史记录
+    usage: mph <Match ID>
+    options:
+      - t: 返回的图片主题
+    examples:
+      - command: mph 114514
+    messages:
+      error: "查询时出现了错误"
+      badRequest: "无法找到这个Match ID"
+  mpr:
+    description: 查询 osu! 多人游戏的Rating
+    usage: mpr <Match ID>
+    options:
+      - t: 返回的图片主题
+      - a: 算法
+    examples:
+      - command: mpr 114514
+    messages:
+      error: "查询时出现了错误"
+      badRequest: "无法找到这个Match ID"
+      invalidAlgorithm: "无效的算法"
