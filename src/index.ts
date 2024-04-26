@@ -63,6 +63,14 @@ export function apply(ctx: Context, config: Config) {
   ctx.command('bind <username: text>', '绑定osu账号')
     .action(async ({ session }, username) => {
       let msg = ''
+      const fullCmd = session.event.message.elements.toString();
+      const username1 = fullCmd.split('/bind ')[1];
+      if (username === undefined) {
+        if (username1 === undefined) {
+          return session.text('.noUsername')
+        }
+        username = username1;
+      }
       try {
         const res = await service.post(
           '/users/bind',
