@@ -8,6 +8,7 @@ commands:
       success: "已绑定到"
       alreadyBound: "你的 osu! 账号已经绑定过了, 请使用 `unbind` 来解绑"
       invalidUser: "无法找到这个 osu! 用户"
+      noUsername: "请提供你的 osu! 用户名"
       error: "绑定时出现了错误"
   unbind:
     description: 解绑你的 osu! 账号
@@ -63,6 +64,19 @@ commands:
     messages:
       notBound: "该用户还没有绑定 osu! 账号, 或暂无最近游玩记录"
       error: "查询时出现了错误"
+  bp:
+    description: 查询你的 osu! 最佳表现
+    usage: bp <bp 序号> [@用户]
+    options:
+      - m: 需要查询的模式
+      - t: 返回的图片主题
+    examples:
+      - command: bp 99
+      - command: bp 99 @peppy
+      - command: bp 99 -m 0 -t default
+    messages:
+      notBound: "该用户还没有绑定 osu! 账号, 或该序号 bp 不存在"
+      error: "查询时出现了错误"
   score:
     description: 查询你的 osu! 最高分数
     usage: score <beatmap id> [@用户]
@@ -75,7 +89,7 @@ commands:
       - command: score -m 0 -t default
     messages:
       notBound: "该用户还没有绑定 osu! 账号, 或暂无最高分数记录"
-      error: "查询时出现了错误"
+      error: "查询时出现了错误, 请检查你的参数, 也有可能你查询的 mod 成绩不存在"
   map:
     description: 查询 osu! 地图信息
     usage: map <beatmap id>
