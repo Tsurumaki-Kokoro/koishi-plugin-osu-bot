@@ -313,13 +313,14 @@ export function apply(ctx: Context, config: Config) {
     .option('theme', '-t [theme: string]')
     .action(async ({ session, options }, beatmapId, user) => {
       const platform_uid = user ? user.split(':')[1] : session.event.user.id
+      const mods = options.mods ? options.mods.toUpperCase() : null
       try {
         const res = await service.get('/score/user_score', {
           params: {
             platform: session.event.platform,
             platform_uid,
             beatmap_id: beatmapId,
-            mods: options.mods,
+            mods: mods,
             theme: options.theme,
           },
           responseType: 'arraybuffer',
