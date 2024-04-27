@@ -1,7 +1,7 @@
 {
   "name": "@tr4nce/koishi-plugin-osu-bot",
   "description": "Base on HitCircle API",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
