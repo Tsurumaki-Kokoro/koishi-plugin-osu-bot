@@ -308,6 +308,70 @@ export function apply(ctx: Context, config: Config) {
       }
     })
 
+  ctx.command('bpa [user: user]', '查询bp分析图')
+    .option('theme', '-t [theme: string]')
+    .action(async ({ session, options }, user) => {
+      const platform_uid = user ? user.replace(/[<@>]/g, '') : session.event.user.id
+      try {
+        const res = await service.get('/user_info/extra/performance_analyze', {
+          params: {
+            platform: session.event.platform,
+            platform_uid,
+            theme: options.theme,
+          },
+          responseType: 'arraybuffer',
+        })
+        const base64Image = Buffer.from(res.data).toString('base64');
+        const dataUri = `data:image/png;base64,${base64Image}`;
+        return segment.image(dataUri);
+      } catch (e) {
+        if (e.response.status === 404) {
+          return session.text('.notBound')
+        }
+        ctx.logger.warn(e.response.data)
+        return session.text('.error')
+      }
+    }
+  )
+
+  ctx.on('message', async (session) => {
+    function extractNumberFromText(text: string) {
+      const regex = /我要上(\d{1,3})分/;
+      const match = text.match(regex);
+      if (match) {
+        return parseInt(match[1], 10);  // 将匹配到的字符串数字转换为整数
+      } else {
+        return null;  // 如果没有匹配到，返回 null
+      }
+    }
+
+    if (extractNumberFromText(session.content)) {
+      try {
+        const pp = extractNumberFromText(session.content);
+        const platform_uid = session.event.user.id;
+        const res = await service.get('/user_info/extra/performance_control', {
+          params: {
+            platform: session.event.platform,
+            platform_uid,
+            pp,
+          }
+        })
+        if (res.status === 200) {
+          const data = res.data.required_pp;
+          const new_pp = data[0].toFixed(2);
+          const new_index = data[1];
+          session.send('你需要打一个' + new_pp + 'pp的新成绩，新成绩将成为bp' + new_index + '。');
+        }
+      } catch (e) {
+        if (e.response.status === 404) {
+          session.send('.notBound');
+        }
+        ctx.logger.warn(e.response.data);
+        session.send('.error');
+      }
+    }
+  })
+
   ctx.command('score <beatmapId: integer> [user: user]', '查询单图成绩')
     .option('mods', '-md [mods: string]')
     .option('theme', '-t [theme: string]')
