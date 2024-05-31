@@ -220,11 +220,11 @@ export function apply(ctx: Context, config: Config) {
       }
     })
 
-  ctx.command('recent [user: user] []', '查询最近(含 Failed)游玩记录')
+  ctx.command('recent [user: user]', '查询最近(含 Failed)游玩记录')
     .option('mode', '-m [mode: integer]')
     .option('theme', '-t [theme: string]')
     .action(async ({ session, options }, user) => {
-      const platform_uid = user ? user.split(':')[1] : session.event.user.id
+      const platform_uid = user ? user.replace(/[<@>]/g, '') : session.event.user.id
       try {
         const res = await service.get(
           '/score/recent_play',
@@ -251,11 +251,11 @@ export function apply(ctx: Context, config: Config) {
       }
     })
 
-  ctx.command('pr [user: user] []', '查询最近游玩记录')
+  ctx.command('pr [user: user]', '查询最近游玩记录')
     .option('mode', '-m [mode: integer]')
     .option('theme', '-t [theme: string]')
     .action(async ({ session, options }, user) => {
-      const platform_uid = user ? user.split(':')[1] : session.event.user.id
+      const platform_uid = user ? user.replace(/[<@>]/g, '') : session.event.user.id
       try {
         const res = await service.get(
           '/score/recent_play', {
@@ -284,7 +284,7 @@ export function apply(ctx: Context, config: Config) {
     .option('mode', '-m [mode: integer]')
     .option('theme', '-t [theme: string]')
     .action(async ({ session, options }, index, user) => {
-      const platform_uid = user ? user.split(':')[1] : session.event.user.id
+      const platform_uid = user ? user.replace(/[<@>]/g, '') : session.event.user.id
       try {
         const res = await service.get('/score/best_play', {
           params: {
@@ -376,7 +376,7 @@ export function apply(ctx: Context, config: Config) {
     .option('mods', '-md [mods: string]')
     .option('theme', '-t [theme: string]')
     .action(async ({ session, options }, beatmapId, user) => {
-      const platform_uid = user ? user.split(':')[1] : session.event.user.id
+      const platform_uid = user ? user.replace(/[<@>]/g, '') : session.event.user.id
       const mods = options.mods ? options.mods.toUpperCase() : null
       try {
         const res = await service.get('/score/user_score', {
