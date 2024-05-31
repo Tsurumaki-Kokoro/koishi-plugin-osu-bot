@@ -77,6 +77,19 @@ commands:
     messages:
       notBound: "该用户还没有绑定 osu! 账号, 或该序号 bp 不存在"
       error: "查询时出现了错误"
+  bpa:
+    description: 查询你的 osu! bp 分析
+    usage: bpa [@用户]
+    options:
+      - m: 需要查询的模式(暂不支持)
+      - t: 返回的图片主题
+    examples:
+      - command: bpa
+      - command: bpa @peppy
+      - command: bpa -m 0 -t default
+    messages:
+      notBound: "该用户还没有绑定 osu! 账号, 或暂无 bp"
+      error: "查询时出现了错误"
   score:
     description: 查询你的 osu! 最高分数
     usage: score <beatmap id> [@用户]
